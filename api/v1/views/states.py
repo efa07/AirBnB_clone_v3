@@ -1,18 +1,17 @@
 #!/usr/bin/python3
-""" State module """
-
-from models import storage
+"""State module"""
 from api.v1.views import app_views
+from models import storage
 from models.state import State
-from flask import jsonify, abort, request, make_response
 from flasgger.utils import swag_from
+from flask import jsonify, abort, request, make_response
+
 
 
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 @swag_from('documentation/state/get.yml', methods=['GET'])
 def get_all():
     """ get all by id """
-    
     all_list = [obj.to_dict() for obj in storage.all(State).values()]
     return jsonify(all_list)
 
